@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#586DE1</color>
     <color name="lightWhite">#F6F4F4</color>
+    <color name="income_msg_color">#D8D5D5</color>
     <color name="lightBlack">#4E4D4D</color>
 </resources>
