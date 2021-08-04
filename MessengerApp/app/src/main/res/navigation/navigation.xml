@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/signIn">
+
+    <fragment
+        android:id="@+id/signIn"
+        android:name="ge.dadeishvili.messengerapp.fragments.SignIn"
+        android:label="Intro" >
+        <action
+            android:id="@+id/action_signIn_to_message"
+            app:destination="@id/message" />
+        <action
+            android:id="@+id/action_signIn_to_signUp"
+            app:destination="@id/signUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/message"
+        android:name="ge.dadeishvili.messengerapp.fragments.Message"
+        android:label="MessageFragment" >
+        <action
+            android:id="@+id/action_messageFragment_to_chat"
+            app:destination="@id/chat" />
+    </fragment>
+    <fragment
+        android:id="@+id/chat"
+        android:name="ge.dadeishvili.messengerapp.fragments.Chat"
+        android:label="Chat" >
+        <action
+            android:id="@+id/action_chat_to_message"
+            app:destination="@id/message" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUp"
+        android:name="ge.dadeishvili.messengerapp.fragments.SignUp"
+        android:label="SignUp" >
+        <action
+            android:id="@+id/action_signUp_to_message"
+            app:destination="@id/message" />
+    </fragment>
+</navigation>

@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_margin"
         android:ems="6"
+        android:foreground="@drawable/sign_up_button"
         android:text="@string/sign_out"
         android:textSize="@dimen/button_text_size"
         app:layout_constraintEnd_toEndOf="parent"

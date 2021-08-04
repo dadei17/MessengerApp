@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
         android:layout_marginBottom="@dimen/common_margin"
@@ -23,6 +24,8 @@
         android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/enter_your_nickname"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
         android:textSize="@dimen/common_text_size"
@@ -41,6 +44,8 @@
         android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/enter_your_password"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
         android:textSize="@dimen/common_text_size"
@@ -75,12 +80,13 @@
 
     <Button
         android:id="@+id/signUpButton"
+        style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Button"
+        android:layout_marginBottom="@dimen/half_margin"
+        android:foreground="@drawable/sign_up_button"
         android:text="@string/sign_up"
         android:textSize="@dimen/button_text_size"
-        android:layout_marginBottom="@dimen/half_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
