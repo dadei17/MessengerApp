@@ -1,12 +1,12 @@
 package ge.dadeishvili.messengerapp.models
 
-import java.io.Serializable
+import com.google.firebase.database.IgnoreExtraProperties
 
-data class User (
-    var id: Int = 0,
-    var nick: String,
-    var password: String,
-    var todo: String,
-    var avatar: ByteArray
-): Serializable
+@IgnoreExtraProperties
+data class User(
+    var nickName: String? = null,
+    var password: String? = null,
+    var todo: String? = null,
+    var avatar: ByteArray? = null
+)
 

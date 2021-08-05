@@ -16,6 +16,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import ge.dadeishvili.messengerapp.R
 import java.io.ByteArrayOutputStream
@@ -43,6 +44,9 @@ class SignIn : Fragment() {
                 snack.show()
                 return@setOnClickListener
             }
+        }
+        view.findViewById<Button>(R.id.signUpButton).setOnClickListener{
+            findNavController().navigate(R.id.action_signIn_to_signUp)
         }
         imgView.setOnClickListener {
             chooseImage()

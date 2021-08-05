@@ -44,7 +44,6 @@
         android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/enter_your_password"
-        android:imeOptions="actionNext"
         android:inputType="text"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
