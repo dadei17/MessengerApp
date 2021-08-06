@@ -45,8 +45,8 @@ class SignUp : Fragment() {
                 todo.text.toString()
             )
             usersRef.child(nick.text.toString()).setValue(user)
-            val args = bundleOf("user" to user)
-            findNavController().navigate(R.id.action_signUp_to_message, args)
+//            val args = bundleOf("user" to user)
+            findNavController().navigate(R.id.action_signUp_to_message)
         }
         return view
     }
