@@ -17,10 +17,11 @@
 
     <TextView
         android:id="@+id/enterNameText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_layout"
-        android:ems="13"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginEnd="@dimen/half_margin"
         android:fontFamily="casual"
         android:textColorHint="@color/black"
         android:hint="@string/nickname"
@@ -35,11 +36,12 @@
 
     <TextView
         android:id="@+id/toDoText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin"
         android:background="@drawable/edit_text_layout"
-        android:ems="13"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginEnd="@dimen/half_margin"
         android:textColorHint="@color/black"
         android:fontFamily="casual"
         android:hint="@string/to_do"

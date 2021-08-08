@@ -12,14 +12,6 @@ import ge.dadeishvili.messengerapp.models.User
 class Message : Fragment() {
     lateinit var user: User
 
-    // TODO: user not serialized
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        if (savedInstanceState == null) {
-//            user = requireArguments()["user"] as User
-//        }
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -19,10 +19,11 @@
 
     <EditText
         android:id="@+id/sign_up_nick_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginEnd="@dimen/half_margin"
         android:background="@drawable/edit_text_layout"
-        android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/enter_your_nickname"
         android:imeOptions="actionNext"
@@ -38,11 +39,12 @@
 
     <EditText
         android:id="@+id/sign_up_password_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_margin"
         android:layout_marginTop="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/half_margin"
         android:background="@drawable/edit_text_layout"
-        android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/enter_your_password"
         android:imeOptions="actionNext"
@@ -57,11 +59,12 @@
 
     <EditText
         android:id="@+id/sign_up_toDo_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/half_margin"
         android:layout_marginTop="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/half_margin"
         android:background="@drawable/edit_text_layout"
-        android:ems="13"
         android:fontFamily="casual"
         android:hint="@string/what_i_do"
         android:inputType="text"
