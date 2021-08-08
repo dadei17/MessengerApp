@@ -10,28 +10,10 @@
     <string name="sign_out">SIGN OUT</string>
     <string name="nickname">nickname</string>
     <string name="to_do">to do</string>
-    <string name="description">Energy weapons or Bullets? What would make more sense?
-Leviticus 18:21 in LXX different?
-Could 家族 be used for really close friends?
-How to make a cap to cover the battery terminals of Ryobi batteries?
-What tried and tested possibilities are there to create a poster without using LaTeX?
-What would cause a moon to become much brighter only a few times a year?
-Freight on a World without Oceans
-Is there any limit to how many times you can increase velocity by repeated sling shot manoeuvres?
-How to verify email from own server to google relay SMTP service is using TLS
-What 17 mm spanner for roadside repairs?
-What is the official position of human rights organizations on protest restrictions during the pandemic?
-What hair color did Évariste Galois have?
-Will proper autoclave treatment really "inactivate all resistant bacterial spores"? If not, how widespread are autoclave-resistant bacterial spores?
-Are there infinitely many Fermat prime pairs?
-Enable vendor-disabled hardware on tablet?
-All Outbond Traffic Uses IPV6
-Omission of if in a conditional phrase
-What could centipedal mechs do that tracked s wheeled vehicles couldn\t do?
-How do you properly and consistently pan-sear shrimp?
-I\m on fire and I\m invisible. Can I be seen?
-How should I manage conflicting schedules from project managers who refuse to communicate with each other?
-Queries for storing and get information from postgreSQL
-Build me a room
-Why do pure mathematicians tend to start publishing good papers a bit late?</string>
+    <string name="search">Search</string>
+    <string name="no_message">no message</string>
+    <string name="hh_mm">HH:MM</string>
+    <string name="name">Name</string>
+    <string name="name_surname">Name surname</string>
+    <string name="message">Message</string>
 </resources>

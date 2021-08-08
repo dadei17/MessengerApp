@@ -46,7 +46,8 @@ class SignIn : Fragment() {
             }
         }
         view.findViewById<Button>(R.id.signUpButton).setOnClickListener{
-            findNavController().navigate(R.id.action_signIn_to_signUp)
+            // TODO: ეს იქნება შესაცვლელი
+            findNavController().navigate(R.id.action_signIn_to_message)
         }
         imgView.setOnClickListener {
             chooseImage()

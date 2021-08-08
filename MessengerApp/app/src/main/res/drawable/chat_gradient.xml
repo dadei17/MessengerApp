@@ -4,8 +4,4 @@
         android:startColor="@color/purple"
         android:endColor="@color/blue"
         android:type="linear"/>
-    <corners
-        android:bottomLeftRadius="25dp"
-        android:topLeftRadius="25dp"
-        android:topRightRadius="25dp" />
 </shape>

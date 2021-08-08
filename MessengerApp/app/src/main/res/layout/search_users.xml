@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:background="@drawable/chat_gradient"
+        android:layout_height="@dimen/tool_bar_height"
+        tools:ignore="MissingConstraints">
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="@dimen/half_margin"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/search_page_back"
+            android:layout_width="@dimen/arrow_image_size"
+            android:layout_height="@dimen/arrow_image_size"
+            android:background="@drawable/back_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/space"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SearchView
+            android:id="@+id/search_page_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_height"
+            android:background="@drawable/search_shape"
+            android:fitsSystemWindows="true"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/search"
+            android:layout_marginRight="@dimen/common_margin"
+            android:layout_marginLeft="@dimen/arrow_margin"
+            android:soundEffectsEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_page_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

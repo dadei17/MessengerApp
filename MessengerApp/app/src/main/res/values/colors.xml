@@ -11,4 +11,7 @@
     <color name="lightWhite">#F6F4F4</color>
     <color name="income_msg_color">#D8D5D5</color>
     <color name="lightBlack">#4E4D4D</color>
+    <color name="pink">#D9CDF1</color>
+    <color name="purple">#531D9F</color>
+    <color name="send_button_color">#242229</color>
 </resources>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_size"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/chat_gradient"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="pin">
+
+                <Space
+                    android:id="@+id/space2"
+                    android:layout_width="@dimen/common_margin"
+                    android:layout_height="match_parent"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageButton
+                    android:id="@+id/chat_back"
+                    android:layout_width="@dimen/arrow_image_size"
+                    android:layout_height="@dimen/arrow_image_size"
+                    android:background="@drawable/back_arrow"
+                    android:text="@string/name"
+                    android:textSize="@dimen/common_text_size"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintBottom_toTopOf="@+id/chat_name"
+                    app:layout_constraintStart_toEndOf="@+id/space2"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/chat_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/min_margin"
+                    android:text="@string/name_surname"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/big_text_size"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintBottom_toTopOf="@+id/chat_to_do"
+                    app:layout_constraintStart_toEndOf="@+id/space2"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/chat_to_do"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    android:text="@string/to_do"
+                    android:textColor="@color/lightWhite"
+                    android:textSize="@dimen/common_text_size"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/space2"
+                    tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/message_avatar_size"
+                    android:layout_height="@dimen/message_avatar_size"
+                    android:layout_marginRight="@dimen/common_margin"
+                    android:src="@drawable/avatar_image_placeholder"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintBottom_toBottomOf="@+id/chat_to_do"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingClass,MissingConstraints" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tool_bar_height"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messages_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:layout_marginBottom="@dimen/half_margin"
+        app:cardElevation="@dimen/none_elevation">
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="@dimen/send_button_size"
+            android:layout_height="@dimen/send_button_size"
+            android:layout_gravity="center|right"
+            android:layout_marginEnd="@dimen/half_margin"
+            android:background="@drawable/circle_shape"
+            tools:ignore="RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/chat_message_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_height"
+            android:background="@drawable/search_shape"
+            android:hint="@string/message"
+            android:inputType="textPersonName"
+            android:padding="@dimen/half_margin"
+            android:textSize="@dimen/common_text_size" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
