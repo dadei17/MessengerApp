@@ -6,18 +6,18 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/sign_in_imageView"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
         android:layout_marginBottom="@dimen/common_margin"
         android:src="@drawable/avatar_image_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/enterNameText"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_nick_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/enterNameText"
+        android:id="@+id/sign_in_nick_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_layout"
@@ -36,7 +36,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/enterPasswordText"
+        android:id="@+id/sign_in_password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin"
@@ -50,11 +50,11 @@
         android:textSize="@dimen/common_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterNameText"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_nick_text"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/sign_in_signIn_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin"
@@ -63,7 +63,7 @@
         android:textSize="@dimen/button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterPasswordText"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_password_text"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -72,13 +72,13 @@
         android:hint="@string/not_registered"
         android:textColorHint="@color/lightBlack"
         android:textSize="@dimen/common_text_size"
-        app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_signUp_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/signUpButton"
+        android:id="@+id/sign_in_signUp_button"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

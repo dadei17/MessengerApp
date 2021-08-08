@@ -7,17 +7,18 @@
 
 
     <ImageView
+        android:id="@+id/sign_up_imageView"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
         android:layout_marginBottom="@dimen/common_margin"
         android:src="@drawable/avatar_image_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/enterNameText1"
+        app:layout_constraintBottom_toTopOf="@+id/sign_up_nick_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/enterNameText1"
+        android:id="@+id/sign_up_nick_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_text_layout"
@@ -36,7 +37,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/enterPasswordText1"
+        android:id="@+id/sign_up_password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin"
@@ -51,11 +52,11 @@
         android:textSize="@dimen/common_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterNameText1"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_nick_text"
+        tools:ignore="MissingConstraints,TextFields" />
 
     <EditText
-        android:id="@+id/todoText1"
+        android:id="@+id/sign_up_toDo_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_margin"
@@ -69,11 +70,11 @@
         android:textSize="@dimen/common_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterPasswordText1"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_password_text"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/signUpButton1"
+        android:id="@+id/sign_up_signUp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/double_margin"
@@ -82,7 +83,7 @@
         android:textSize="@dimen/button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/todoText1"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_toDo_text"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
