@@ -21,6 +21,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.models.User
 import java.io.ByteArrayOutputStream
@@ -31,6 +34,9 @@ class SignUp : Fragment() {
     private lateinit var password: EditText
     private lateinit var todo: EditText
     private lateinit var imageView: ImageView
+    private lateinit var imageUri: Uri
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageRef: StorageReference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +44,15 @@ class SignUp : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.sign_up, container, false)
+        storage = Firebase.storage
+        storageRef = storage.reference
         nick = view.findViewById(R.id.sign_up_nick_text)
         password = view.findViewById(R.id.sign_up_password_text)
         todo = view.findViewById(R.id.sign_up_toDo_text)
         imageView = view.findViewById(R.id.sign_up_imageView)
+        imageView.setOnClickListener(View.OnClickListener {
+            chooseImage();
+        })
         view.findViewById<Button>(R.id.sign_up_signUp_button).setOnClickListener {
             if (nick.text.toString().isEmpty() || password.text.toString()
                     .isEmpty() || todo.text.toString().isEmpty()
@@ -50,7 +61,7 @@ class SignUp : Fragment() {
                     context, "Fill all the information!",
                     Toast.LENGTH_SHORT
                 ).show()
-            }else if(password.length() < 6) {
+            } else if (password.length() < 6) {
                 Toast.makeText(
                     context, "Password should be at least 6 characters",
                     Toast.LENGTH_SHORT
@@ -69,6 +80,7 @@ class SignUp : Fragment() {
                     val user = User(nick, todo)
                     val usersRef = Firebase.database.getReference(USERS_DB)
                     usersRef.child(nick).setValue(user)
+                    uploadImage()
                     findNavController().navigate(R.id.action_signUp_to_message)
                 } else {
                     Toast.makeText(
@@ -77,6 +89,39 @@ class SignUp : Fragment() {
                     ).show()
                 }
             }
+    }
+
+    private fun chooseImage() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, 1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData()!!
+            imageView.setImageURI(imageUri)
+        }
+    }
+
+    private fun uploadImage() {
+        val imagesRef = storageRef.child("images/" + nick.text.toString() + ".jpg")
+//        imageView.isDrawingCacheEnabled = true
+//        imageView.buildDrawingCache()
+        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = imagesRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            Toast.makeText(
+                context, "Photo upload failed.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     companion object {

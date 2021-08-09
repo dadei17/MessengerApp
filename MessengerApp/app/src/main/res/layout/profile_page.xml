@@ -5,28 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profilePage_imageView"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
         android:layout_marginBottom="@dimen/common_margin"
         android:src="@drawable/avatar_image_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/enterNameText"
+        app:layout_constraintBottom_toTopOf="@+id/profilePage_NameText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/enterNameText"
+        android:id="@+id/profilePage_NameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_layout"
         android:layout_marginStart="@dimen/half_margin"
         android:layout_marginEnd="@dimen/half_margin"
+        android:background="@drawable/edit_text_layout"
         android:fontFamily="casual"
-        android:textColorHint="@color/black"
         android:hint="@string/nickname"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
+        android:textColorHint="@color/black"
         android:textSize="@dimen/common_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,26 +35,26 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/toDoText"
+        android:id="@+id/profilePage_toDo_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_margin"
-        android:background="@drawable/edit_text_layout"
         android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginTop="@dimen/common_margin"
         android:layout_marginEnd="@dimen/half_margin"
-        android:textColorHint="@color/black"
+        android:background="@drawable/edit_text_layout"
         android:fontFamily="casual"
         android:hint="@string/to_do"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
+        android:textColorHint="@color/black"
         android:textSize="@dimen/common_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterNameText"
+        app:layout_constraintTop_toBottomOf="@+id/profilePage_NameText"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/updateButton"
+        android:id="@+id/profilePage_update_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/double_margin"
@@ -65,11 +65,11 @@
         android:textSize="@dimen/button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toDoText"
+        app:layout_constraintTop_toBottomOf="@+id/profilePage_toDo_text"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/signOutButton"
+        android:id="@+id/profilePage_signOut_button"
         style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
         android:textSize="@dimen/button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateButton"
+        app:layout_constraintTop_toBottomOf="@+id/profilePage_update_button"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/sign_up_imageView"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
@@ -14,8 +13,7 @@
         android:src="@drawable/avatar_image_placeholder"
         app:layout_constraintBottom_toTopOf="@+id/sign_up_nick_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/sign_up_nick_text"

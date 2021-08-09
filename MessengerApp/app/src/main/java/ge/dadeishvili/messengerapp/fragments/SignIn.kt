@@ -14,7 +14,6 @@ import com.google.firebase.ktx.Firebase
 import ge.dadeishvili.messengerapp.R
 
 class SignIn : Fragment() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Firebase.auth.currentUser != null) {
