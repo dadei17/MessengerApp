@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <TextView
+    <EditText
         android:id="@+id/profilePage_toDo_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,10 +43,11 @@
         android:layout_marginEnd="@dimen/half_margin"
         android:background="@drawable/edit_text_layout"
         android:fontFamily="casual"
-        android:hint="@string/to_do"
+        android:hint="@string/what_i_do"
+        android:inputType="text"
         android:padding="@dimen/common_padding"
         android:textAlignment="center"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/lightBlack"
         android:textSize="@dimen/common_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

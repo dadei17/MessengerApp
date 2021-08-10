@@ -31,10 +31,7 @@ class SignIn : Fragment() {
         val password = view.findViewById<EditText>(R.id.sign_in_password_text)
         view.findViewById<Button>(R.id.sign_in_signIn_button).setOnClickListener {
             if (nick.text.toString().isEmpty() || password.text.toString().isEmpty()) {
-                Toast.makeText(
-                    context, "Fill all the information!",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(context, "Fill all the information!", Toast.LENGTH_SHORT).show()
             }
             logIn(nick.text.toString(), password.text.toString())
         }
@@ -45,19 +42,14 @@ class SignIn : Fragment() {
     }
 
     private fun logIn(nick: String, password: String) {
-        val email = nick.plus(EMAIL_ADD)
+        val email = nick.plus(SignUp.EMAIL_ADD)
         Firebase.auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener{
+            .addOnCompleteListener {
                 if (it.isSuccessful) {
                     findNavController().navigate(R.id.action_signIn_to_message)
                 } else {
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-    companion object {
-        const val EMAIL_ADD = "@gmail.com"
     }
 }

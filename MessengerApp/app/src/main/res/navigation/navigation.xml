@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
     app:startDestination="@id/signIn">
 
     <fragment
         android:id="@+id/signIn"
-        android:name="ge.dadeishvili.messengerapp.fragments.SignIn"
-        android:label="Intro" >
+        android:name="ge.dadeishvili.messengerapp.fragments.SignIn">
         <action
             android:id="@+id/action_signIn_to_message"
             app:destination="@id/message" />
@@ -16,26 +16,53 @@
     </fragment>
     <fragment
         android:id="@+id/message"
-        android:name="ge.dadeishvili.messengerapp.fragments.Message"
-        android:label="MessageFragment" >
+        android:name="ge.dadeishvili.messengerapp.fragments.Message">
         <action
-            android:id="@+id/action_messageFragment_to_chat"
+            android:id="@+id/action_message_to_chat"
             app:destination="@id/chat" />
+        <action
+            android:id="@+id/action_message_to_profile"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_message_to_searchUser"
+            app:destination="@id/searchUsers" />
     </fragment>
     <fragment
         android:id="@+id/chat"
-        android:name="ge.dadeishvili.messengerapp.fragments.Chat"
-        android:label="Chat" >
+        android:name="ge.dadeishvili.messengerapp.fragments.Chat">
         <action
             android:id="@+id/action_chat_to_message"
             app:destination="@id/message" />
     </fragment>
     <fragment
         android:id="@+id/signUp"
-        android:name="ge.dadeishvili.messengerapp.fragments.SignUp"
-        android:label="SignUp" >
+        android:name="ge.dadeishvili.messengerapp.fragments.SignUp">
         <action
             android:id="@+id/action_signUp_to_message"
             app:destination="@id/message" />
+    </fragment>
+    <fragment android:id="@+id/profile"
+        android:name="ge.dadeishvili.messengerapp.fragments.Profile">
+        <action
+            android:id="@+id/action_profile_to_signIn"
+            app:destination="@id/signIn" />
+        <action
+            android:id="@+id/action_profile_to_message"
+            app:destination="@id/message" />
+        <action
+            android:id="@+id/action_profile_to_loading"
+            app:destination="@id/loading" />
+    </fragment>
+    <fragment android:id="@+id/searchUsers"
+        android:name="ge.dadeishvili.messengerapp.fragments.SearchUser">
+        <action
+            android:id="@+id/action_searchUser_to_message"
+            app:destination="@id/message" />
+    </fragment>
+    <fragment android:id="@+id/loading"
+        android:name="ge.dadeishvili.messengerapp.fragments.Loading">
+        <action
+            android:id="@+id/action_loading_to_profile"
+            app:destination="@id/profile" />
     </fragment>
 </navigation>

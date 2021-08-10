@@ -4,16 +4,16 @@
     <string name="sign_in">SIGN IN</string>
     <string name="enter_your_password">Enter your password</string>
     <string name="enter_your_nickname">Enter your nickname</string>
-    <string name="what_i_do">what i do</string>
+    <string name="what_i_do">what I do</string>
     <string name="not_registered">Not registered?</string>
     <string name="update">Update</string>
     <string name="sign_out">SIGN OUT</string>
     <string name="nickname">nickname</string>
-    <string name="to_do">to do</string>
     <string name="search">Search</string>
     <string name="no_message">no message</string>
     <string name="hh_mm">HH:MM</string>
     <string name="name">Name</string>
     <string name="name_surname">Name surname</string>
     <string name="message">Message</string>
+    <string name="please_wait">PLEASE WAIT...</string>
 </resources>
