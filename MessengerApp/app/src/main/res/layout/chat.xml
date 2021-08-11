@@ -69,7 +69,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/icon"
+                    android:id="@+id/chat_image"
                     android:layout_width="@dimen/message_avatar_size"
                     android:layout_height="@dimen/message_avatar_size"
                     android:layout_marginRight="@dimen/common_margin"
@@ -103,7 +103,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/messages_recyclerview"
+                android:id="@+id/chat_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"

@@ -2,6 +2,7 @@ package ge.dadeishvili.messengerapp.fragments
 
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -43,7 +44,7 @@ class SignUp : Fragment() {
         val view = inflater.inflate(R.layout.sign_up, container, false)
         init(view)
         imageView.setOnClickListener {
-            chooseImage()
+            chooseImage(this)
         }
         view.findViewById<Button>(R.id.sign_up_signUp_button).setOnClickListener {
             if (nick.text.toString().isEmpty() || password.text.toString()
@@ -71,27 +72,20 @@ class SignUp : Fragment() {
         imageView = view.findViewById(R.id.sign_up_imageView)
     }
 
-    private fun createUser(nick: String, password: String, todo: String) {
-        val email = nick.plus(EMAIL_ADD)
+    private fun createUser(nickName: String, password: String, todo: String) {
+        val email = nickName.plus(EMAIL_ADD)
         Firebase.auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val user = User(nick, todo)
+                    val user = User(nickName, todo)
                     val usersRef = Firebase.database.getReference(USERS_DB)
-                    usersRef.child(nick).setValue(user)
-                    uploadImage()
+                    usersRef.child(nickName).setValue(user)
+                    uploadImage(storageRef, imageView, requireContext(), nick.text.toString())
                     findNavController().navigate(R.id.action_signUp_to_message)
                 } else {
                     Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-    private fun chooseImage() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, 1)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -102,23 +96,35 @@ class SignUp : Fragment() {
         }
     }
 
-    private fun uploadImage() {
-        val imagesRef = storageRef.child("images/" + nick.text.toString() + ".jpg")
-//        imageView.isDrawingCacheEnabled = true
-//        imageView.buildDrawingCache()
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        val uploadTask = imagesRef.putBytes(data)
-        uploadTask.addOnFailureListener {
-            Toast.makeText(context, "Photo upload failed.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     companion object {
         const val USERS_DB = "Users"
         const val EMAIL_ADD = "@gmail.com"
+
+        fun chooseImage(fragment: Fragment) {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            fragment.startActivityForResult(intent, 1)
+        }
+
+        fun uploadImage(
+            storageRef: StorageReference,
+            imageView: ImageView,
+            context: Context,
+            nick: String
+        ) {
+            val imagesRef = storageRef.child("images/$nick.jpg")
+//        imageView.isDrawingCacheEnabled = true
+//        imageView.buildDrawingCache()
+            val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            val uploadTask = imagesRef.putBytes(data)
+            uploadTask.addOnFailureListener {
+                Toast.makeText(context, "Photo upload failed.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

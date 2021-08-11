@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/messageLayout_image"
+        android:id="@+id/userLayout_image"
         android:layout_width="@dimen/message_avatar_size"
         android:layout_height="@dimen/message_avatar_size"
         android:layout_gravity="bottom|center_horizontal"
@@ -18,7 +18,7 @@
         tools:ignore="MissingClass" />
 
     <TextView
-        android:id="@+id/messageLayout_nameText"
+        android:id="@+id/userLayout_nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/half_margin"
@@ -27,30 +27,19 @@
         android:text="@string/name"
         android:textColor="@color/lightBlack"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/messageLayout_image"
+        app:layout_constraintStart_toEndOf="@+id/userLayout_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/messageLayout_message"
+        android:id="@+id/userLayout_toDo"
         android:layout_width="@dimen/message_view_width"
         android:layout_height="@dimen/message_view_height"
         android:layout_marginStart="@dimen/half_margin"
-        android:layout_marginTop="@dimen/half_margin"
+        android:layout_marginTop="@dimen/min_margin"
         android:layout_marginEnd="@dimen/double_margin"
-        android:hint="@string/no_message"
+        android:hint="@string/what_i_do"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/messageLayout_image"
-        app:layout_constraintTop_toBottomOf="@+id/messageLayout_nameText" />
-
-    <TextView
-        android:id="@+id/messageLayout_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/half_margin"
-        android:layout_marginEnd="@dimen/half_margin"
-        android:hint="@string/hh_mm"
-        android:textSize="@dimen/hours_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/userLayout_image"
+        app:layout_constraintTop_toBottomOf="@+id/userLayout_nameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

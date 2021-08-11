@@ -15,7 +15,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/ic_background"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/blue"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +91,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/common_margin"
+            android:layout_marginEnd="@dimen/common_margin">
 
             <Space
                 android:id="@+id/space"
@@ -105,8 +106,9 @@
 
             <Button
                 android:id="@+id/messages_setting_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/option_button_size"
+                android:layout_height="@dimen/option_button_size"
+                android:layout_marginStart="@dimen/common_margin"
                 android:background="@drawable/icons_settings"
                 app:backgroundTint="@color/browser_actions_title_color"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -116,10 +118,11 @@
 
             <Button
                 android:id="@+id/messages_home_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/option_button_size"
+                android:layout_height="@dimen/option_button_size"
                 android:background="@drawable/icon_home"
-                app:backgroundTint="@color/browser_actions_title_color"
+                android:layout_marginEnd="@dimen/common_margin"
+                app:backgroundTint="@color/purple_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/space"
                 app:layout_constraintStart_toStartOf="parent"

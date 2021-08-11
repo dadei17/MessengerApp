@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/message"
-        android:name="ge.dadeishvili.messengerapp.fragments.Message">
+        android:name="ge.dadeishvili.messengerapp.fragments.MessageFragment">
         <action
             android:id="@+id/action_message_to_chat"
             app:destination="@id/chat" />
@@ -49,20 +49,14 @@
         <action
             android:id="@+id/action_profile_to_message"
             app:destination="@id/message" />
-        <action
-            android:id="@+id/action_profile_to_loading"
-            app:destination="@id/loading" />
     </fragment>
     <fragment android:id="@+id/searchUsers"
         android:name="ge.dadeishvili.messengerapp.fragments.SearchUser">
         <action
             android:id="@+id/action_searchUser_to_message"
             app:destination="@id/message" />
-    </fragment>
-    <fragment android:id="@+id/loading"
-        android:name="ge.dadeishvili.messengerapp.fragments.Loading">
         <action
-            android:id="@+id/action_loading_to_profile"
-            app:destination="@id/profile" />
+            android:id="@+id/action_searchUsers_to_chat"
+            app:destination="@id/chat" />
     </fragment>
 </navigation>
