@@ -28,7 +28,6 @@ class UsersAdapter(var userFragment: SearchUser) : RecyclerView.Adapter<UserItem
             user.nickName!!,
             holder.image,
             userFragment.dialog,
-            userFragment.requireContext()
         )
         holder.itemView.setOnClickListener {
             NavHostFragment.findNavController(userFragment).navigate(R.id.action_searchUsers_to_chat)

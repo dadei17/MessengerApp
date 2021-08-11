@@ -19,7 +19,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 import ge.dadeishvili.messengerapp.models.Chat
@@ -44,16 +46,6 @@ class MessageFragment : Fragment() {
         val view = inflater.inflate(R.layout.messages, container, false)
         init(view)
         showMyChat()
-//        val chat = Chat(listOf(Message("dito", "pertaxa", "ravaxar?", Date())))
-//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(chat)
-//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").get().addOnSuccessListener {
-//            val chat = it.getValue(Chat::class.java)
-//            if (chat != null) {
-//                val list = chat.messages!!.toMutableList()
-//                list.add(Message("pertaxa", "dito", "shen?", Date()))
-//                Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(Chat(list))
-//            }
-//        }
         plusButton.setOnClickListener {
             findNavController().navigate(R.id.action_message_to_searchUser)
         }
@@ -78,6 +70,19 @@ class MessageFragment : Fragment() {
         return view
     }
 
+    private fun add(){
+//        val chat = Chat(listOf(Message("dito", "pertaxa", "ravaxar?", Date())))
+//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(chat)
+//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").get().addOnSuccessListener {
+//            val chat = it.getValue(Chat::class.java)
+//            if (chat != null) {
+//                val list = chat.messages!!.toMutableList()
+//                list.add(Message("pertaxa", "dito", "shen?", Date()))
+//                Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(Chat(list))
+//            }
+//        }
+    }
+
     private fun init(view: View) {
         plusButton = view.findViewById(R.id.messages_fab_button)
         settingButton = view.findViewById(R.id.messages_setting_button)
@@ -88,6 +93,7 @@ class MessageFragment : Fragment() {
         chatRef = Firebase.database.getReference(CHATS_DB)
         nickName = getNickName()
         chats = mutableListOf()
+        storageRef = Firebase.storage.reference
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
         dialog = builder.setView(customLayout).create()

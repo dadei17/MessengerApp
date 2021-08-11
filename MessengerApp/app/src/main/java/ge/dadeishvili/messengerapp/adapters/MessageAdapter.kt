@@ -33,10 +33,9 @@ class MessageAdapter(var messageFragment: MessageFragment) :
         }
         Profile.setImage(
             messageFragment.storageRef,
-            nickname,
+            holder.name.text as String,
             holder.image,
-            messageFragment.dialog,
-            messageFragment.requireContext()
+            messageFragment.dialog
         )
     }
 

@@ -15,7 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import ge.dadeishvili.messengerapp.R
-import ge.dadeishvili.messengerapp.adapters.ChatAdapter
+//import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 
 class Chat : Fragment() {
     private lateinit var name: TextView
@@ -49,7 +49,7 @@ class Chat : Fragment() {
         usersRef = Firebase.database.getReference(SignUp.USERS_DB)
         recycler = view.findViewById(R.id.chat_recyclerview)
         recycler.layoutManager = LinearLayoutManager(context)
-        recycler.adapter = ChatAdapter(this)
+//        recycler.adapter = ChatAdapter(this)
     }
 
     private fun setInfo() {

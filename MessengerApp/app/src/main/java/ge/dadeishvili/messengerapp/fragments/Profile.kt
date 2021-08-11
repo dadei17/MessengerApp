@@ -16,6 +16,7 @@ import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import ge.dadeishvili.messengerapp.R
@@ -93,7 +95,12 @@ class Profile : Fragment() {
                 val hashMap = snapshot.child(nickName).value as HashMap<*, *>
                 val todo = hashMap["todo"] as String
                 toDoView.text = SpannableStringBuilder(todo)
-                setImage(storageRef, nickNameView.text.toString(), imageView, dialog, requireContext())
+                setImage(
+                    storageRef,
+                    nickNameView.text.toString(),
+                    imageView,
+                    dialog
+                )
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -115,17 +122,21 @@ class Profile : Fragment() {
         }
     }
 
-    companion object{
-        fun setImage(storageRef: StorageReference, nickname: String, imageView: ImageView, dialog: AlertDialog, context: Context) {
+    companion object {
+        fun setImage(
+            storageRef: StorageReference,
+            nickname: String,
+            imageView: ImageView,
+            dialog: AlertDialog,
+        ) {
             val islandRef = storageRef.child("images/$nickname.jpg")
-            val oneMegaByte: Long = 1024 * 1024 
+            val oneMegaByte: Long = 1024 * 1024
             islandRef.getBytes(oneMegaByte).addOnSuccessListener {
                 val options = BitmapFactory.Options()
                 val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size, options)
                 imageView.setImageBitmap(bitmap)
                 dialog.dismiss()
             }.addOnFailureListener {
-                Toast.makeText(context, "Photo upload failed.", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
         }
