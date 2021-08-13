@@ -5,11 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
@@ -20,11 +16,16 @@ import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import android.app.AlertDialog
+import android.widget.*
+import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.CHATS_DB
+import ge.dadeishvili.messengerapp.models.Message
+import ge.dadeishvili.messengerapp.models.Chat as ChatModel
+import java.util.*
 
 
 //import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 
-class Chat : Fragment() {
+class Chat() : Fragment() {
     private lateinit var name: TextView
     private lateinit var todo: TextView
     private lateinit var imageView: ImageView
@@ -36,6 +37,10 @@ class Chat : Fragment() {
     private lateinit var chatToDo: String
     private lateinit var storageRef: StorageReference
     private lateinit var dialog: AlertDialog
+    private lateinit var sendButton: Button
+    private lateinit var message: EditText
+    private lateinit var chatsRef: DatabaseReference
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +52,31 @@ class Chat : Fragment() {
         setInfo()
         backButton.setOnClickListener{
             Log.e("clicked", "back")
-            findNavController().navigate(R.id.action_back_to_search)
+//            findNavController().navigate(R.id.action_back_to_search)
         }
+
+        sendButton.setOnClickListener{
+            val msg = message.text.toString()
+            if (msg != "") {
+                val from = nickName
+                val to = chatUser
+                val chatId = if (from < to) "$from-$to" else "$to-$from"
+
+                val chat = ChatModel(listOf(Message(from, to, msg, Date())))
+
+                chatsRef.child(chatId).get().addOnSuccessListener {
+                    val chatExisting = it.getValue(ChatModel::class.java)
+                    if (chatExisting != null) {
+                        val list = chatExisting.messages!!.toMutableList()
+                        list.add(Message(from, to, msg, Date()))
+                        chatsRef.child(chatId).setValue(ChatModel(list))
+                    }else {
+                        chatsRef.child(chatId).setValue(chat)
+                    }
+                }
+            }
+        }
+
         return view;
     }
 
@@ -64,6 +92,9 @@ class Chat : Fragment() {
         chatUser = arguments?.getString("nickName").toString()
         chatToDo = arguments?.getString("toDo").toString()
         storageRef = Firebase.storage.reference
+        sendButton = view.findViewById(R.id.send_button)
+        message = view.findViewById(R.id.chat_message_text)
+        chatsRef = Firebase.database.getReference(CHATS_DB)
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val customLayout: View = layoutInflater.inflate(R.layout.loading, null)

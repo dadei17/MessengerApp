@@ -102,13 +102,13 @@ class MessageFragment : Fragment() {
     private fun showMyChat() {
         chatRef.get().addOnSuccessListener {
             for (child in it.children) {
-                val twoNames = child.key
-                val list = twoNames!!.split(SPLIT_CHAR)
-                if (list.contains(nickName)) {
-                    val chat = child.getValue(Chat::class.java)!!
-                    chats.add(chat)
-                    recycler.adapter!!.notifyDataSetChanged()
-                }
+//                val twoNames = child.key
+//                val list = twoNames!!.split(SPLIT_CHAR)
+//                if (list.contains(nickName)) {
+//                    val chat = child.getValue(Chat::class.java)!!
+//                    chats.add(chat)
+//                    recycler.adapter!!.notifyDataSetChanged()
+//                }
             }
         }
     }
