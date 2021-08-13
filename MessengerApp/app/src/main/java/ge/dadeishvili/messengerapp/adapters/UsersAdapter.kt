@@ -31,7 +31,7 @@ class UsersAdapter(var userFragment: SearchUser) : RecyclerView.Adapter<UserItem
             userFragment.dialog,
         )
         holder.itemView.setOnClickListener {
-            val bundle = bundleOf("nickName" to user.nickName, "toDo" to user.todo)
+            val bundle = bundleOf("nickName" to user.nickName)
             NavHostFragment.findNavController(userFragment).navigate(R.id.action_searchUsers_to_chat, bundle)
         }
     }

@@ -16,7 +16,11 @@ import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import android.app.AlertDialog
+import android.text.SpannableStringBuilder
 import android.widget.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.CHATS_DB
 import ge.dadeishvili.messengerapp.models.Message
 import ge.dadeishvili.messengerapp.models.Chat as ChatModel
@@ -90,7 +94,7 @@ class Chat() : Fragment() {
         recycler = view.findViewById(R.id.chat_recyclerview)
         recycler.layoutManager = LinearLayoutManager(context)
         chatUser = arguments?.getString("nickName").toString()
-        chatToDo = arguments?.getString("toDo").toString()
+//        chatToDo = arguments?.getString("toDo").toString()
         storageRef = Firebase.storage.reference
         sendButton = view.findViewById(R.id.send_button)
         message = view.findViewById(R.id.chat_message_text)
@@ -107,7 +111,20 @@ class Chat() : Fragment() {
 
     private fun setInfo() {
         name.text = chatUser
-        todo.text = chatToDo
+
+        usersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val hashMap = snapshot.child(chatUser).value as HashMap<*, *>
+                val todoMap = hashMap["todo"] as String
+                val text = SpannableStringBuilder(todoMap)
+                todo.text = text.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                dialog.dismiss()
+            }
+        })
+
         setImage(
             storageRef,
             chatUser,

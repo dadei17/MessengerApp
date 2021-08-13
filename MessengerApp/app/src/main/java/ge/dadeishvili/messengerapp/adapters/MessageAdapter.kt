@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.fragments.MessageFragment
+import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.getNickName
 import ge.dadeishvili.messengerapp.fragments.Profile
 import java.util.*
 
@@ -29,7 +31,8 @@ class MessageAdapter(var messageFragment: MessageFragment) :
         holder.name.text = if (messages?.last()?.from?.compareTo(nickname) == 0)  messages.last().to else messages?.last()?.from
         holder.time.text = calculateTime(messages?.last()?.date)
         holder.itemView.setOnClickListener {
-            NavHostFragment.findNavController(messageFragment).navigate(R.id.action_message_to_chat)
+            val bundle = bundleOf("nickName" to holder.name.text.toString())
+            NavHostFragment.findNavController(messageFragment).navigate(R.id.action_message_to_chat, bundle)
         }
         Profile.setImage(
             messageFragment.storageRef,
