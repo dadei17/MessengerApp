@@ -21,13 +21,13 @@ import android.widget.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.CHATS_DB
 import ge.dadeishvili.messengerapp.models.Message
 import ge.dadeishvili.messengerapp.models.Chat as ChatModel
 import java.util.*
+import kotlin.collections.ArrayList
 
-
-//import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 
 class Chat() : Fragment() {
     private lateinit var name: TextView
@@ -44,6 +44,7 @@ class Chat() : Fragment() {
     private lateinit var sendButton: Button
     private lateinit var message: EditText
     private lateinit var chatsRef: DatabaseReference
+    private lateinit var chatList: ChatModel
 
 
     override fun onCreateView(
@@ -68,16 +69,9 @@ class Chat() : Fragment() {
 
                 val chat = ChatModel(listOf(Message(from, to, msg, Date())))
 
-                chatsRef.child(chatId).get().addOnSuccessListener {
-                    val chatExisting = it.getValue(ChatModel::class.java)
-                    if (chatExisting != null) {
-                        val list = chatExisting.messages!!.toMutableList()
-                        list.add(Message(from, to, msg, Date()))
-                        chatsRef.child(chatId).setValue(ChatModel(list))
-                    }else {
-                        chatsRef.child(chatId).setValue(chat)
-                    }
-                }
+                chatList.messages = chatList.messages!!.toMutableList()
+                (chatList.messages as MutableList<Message>).add(Message(from, to, msg, Date()))
+                chatsRef.child(chatId).setValue(chatList)
             }
         }
 
@@ -94,11 +88,11 @@ class Chat() : Fragment() {
         recycler = view.findViewById(R.id.chat_recyclerview)
         recycler.layoutManager = LinearLayoutManager(context)
         chatUser = arguments?.getString("nickName").toString()
-//        chatToDo = arguments?.getString("toDo").toString()
         storageRef = Firebase.storage.reference
         sendButton = view.findViewById(R.id.send_button)
         message = view.findViewById(R.id.chat_message_text)
         chatsRef = Firebase.database.getReference(CHATS_DB)
+        chatList = ChatModel()
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
@@ -106,7 +100,12 @@ class Chat() : Fragment() {
 
         dialog.show()
         dialog.setCanceledOnTouchOutside(false)
-//        recycler.adapter = ChatAdapter(this)
+
+
+        updateMessageList()
+        recycler = view.findViewById(R.id.chat_recyclerview)
+        recycler.layoutManager = LinearLayoutManager(context)
+//        recycler.adapter = ChatAdapter(chatList)
     }
 
     private fun setInfo() {
@@ -131,6 +130,19 @@ class Chat() : Fragment() {
             imageView,
             dialog
         )
+    }
+
+    private fun updateMessageList(){
+        val from = nickName
+        val to = chatUser
+        val chatId = if (from < to) "$from-$to" else "$to-$from"
+
+        chatsRef.child(chatId).get().addOnSuccessListener {
+            val chatExisting = it.getValue(ChatModel::class.java)
+            if (chatExisting != null) {
+                chatList = ChatModel(chatExisting.messages!!.toMutableList())
+            }
+        }
     }
 
     private fun createChat(to: String) {
