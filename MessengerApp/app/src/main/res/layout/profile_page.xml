@@ -75,84 +75,86 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_margin"
+        android:layout_marginBottom="80dp"
         android:ems="6"
         android:foreground="@drawable/sign_up_button"
         android:text="@string/sign_out"
         android:textSize="@dimen/button_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/coordinatorLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePage_update_button"
         tools:ignore="MissingConstraints" />
 
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:id="@+id/coordinatorLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/profilePage_fab_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/half_margin"-->
-<!--            android:adjustViewBounds="true"-->
-<!--            android:foreground="@drawable/button_plus"-->
-<!--            app:backgroundTint="@color/purple_500"-->
-<!--            app:layout_anchor="@+id/profilePage_bottom_appBar"-->
-<!--            tools:ignore="MissingConstraints"-->
-<!--            tools:layout_editor_absoluteX="177dp"-->
-<!--            tools:layout_editor_absoluteY="646dp" />-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profilePage_fab_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/half_margin"
+            android:adjustViewBounds="true"
+            android:foreground="@drawable/button_plus"
+            app:backgroundTint="@color/purple_500"
+            app:layout_anchor="@+id/profilePage_bottom_appBar"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="646dp" />
 
-<!--        <com.google.android.material.bottomappbar.BottomAppBar-->
-<!--            android:id="@+id/profilePage_bottom_appBar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:hideOnScroll="true"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            tools:ignore="BottomAppBar">-->
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/profilePage_bottom_appBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:hideOnScroll="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="BottomAppBar">
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_marginStart="@dimen/common_margin"-->
-<!--                android:layout_marginEnd="@dimen/common_margin">-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/common_margin"
+                android:layout_marginEnd="@dimen/common_margin">
 
-<!--                <Space-->
-<!--                    android:id="@+id/space"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/profilePage_setting_button"-->
-<!--                    android:layout_width="@dimen/option_button_size"-->
-<!--                    android:layout_height="@dimen/option_button_size"-->
-<!--                    android:layout_marginStart="@dimen/common_margin"-->
-<!--                    android:background="@drawable/icons_settings"-->
-<!--                    app:backgroundTint="@color/purple_500"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/space"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+                <Button
+                    android:id="@+id/profilePage_setting_button"
+                    android:layout_width="@dimen/option_button_size"
+                    android:layout_height="@dimen/option_button_size"
+                    android:layout_marginStart="@dimen/common_margin"
+                    android:background="@drawable/icons_settings"
+                    app:backgroundTint="@color/purple_500"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/space"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-<!--                <Button-->
-<!--                    android:id="@+id/profilePage_home_button"-->
-<!--                    android:layout_width="@dimen/option_button_size"-->
-<!--                    android:layout_height="@dimen/option_button_size"-->
-<!--                    android:layout_marginEnd="@dimen/common_margin"-->
-<!--                    android:background="@drawable/icon_home"-->
-<!--                    app:backgroundTint="@color/browser_actions_title_color"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@+id/space"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+                <Button
+                    android:id="@+id/profilePage_home_button"
+                    android:layout_width="@dimen/option_button_size"
+                    android:layout_height="@dimen/option_button_size"
+                    android:layout_marginEnd="@dimen/common_margin"
+                    android:background="@drawable/icon_home"
+                    app:backgroundTint="@color/browser_actions_title_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/space"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        </com.google.android.material.bottomappbar.BottomAppBar>-->
-<!--        -->
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

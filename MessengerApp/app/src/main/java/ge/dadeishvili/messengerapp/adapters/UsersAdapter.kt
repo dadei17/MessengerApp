@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import ge.dadeishvili.messengerapp.R
@@ -30,7 +31,8 @@ class UsersAdapter(var userFragment: SearchUser) : RecyclerView.Adapter<UserItem
             userFragment.dialog,
         )
         holder.itemView.setOnClickListener {
-            NavHostFragment.findNavController(userFragment).navigate(R.id.action_searchUsers_to_chat)
+            val bundle = bundleOf("nickName" to user.nickName, "toDo" to user.todo)
+            NavHostFragment.findNavController(userFragment).navigate(R.id.action_searchUsers_to_chat, bundle)
         }
     }
 

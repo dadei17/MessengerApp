@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_chat_to_message"
             app:destination="@id/message" />
+        <action
+            android:id="@+id/action_back_to_search"
+            app:destination="@id/searchUsers" />
     </fragment>
     <fragment
         android:id="@+id/signUp"

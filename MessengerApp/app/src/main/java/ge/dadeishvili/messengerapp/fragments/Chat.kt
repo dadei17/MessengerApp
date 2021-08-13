@@ -1,6 +1,7 @@
 package ge.dadeishvili.messengerapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import ge.dadeishvili.messengerapp.R
+import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
+import android.app.AlertDialog
+
+
 //import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 
 class Chat : Fragment() {
@@ -25,6 +32,10 @@ class Chat : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var nickName: String
     private lateinit var usersRef: DatabaseReference
+    private lateinit var chatUser: String
+    private lateinit var chatToDo: String
+    private lateinit var storageRef: StorageReference
+    private lateinit var dialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +46,8 @@ class Chat : Fragment() {
         init(view)
         setInfo()
         backButton.setOnClickListener{
-            findNavController().navigate(R.id.action_chat_to_message)
+            Log.e("clicked", "back")
+            findNavController().navigate(R.id.action_back_to_search)
         }
         return view;
     }
@@ -49,11 +61,28 @@ class Chat : Fragment() {
         usersRef = Firebase.database.getReference(SignUp.USERS_DB)
         recycler = view.findViewById(R.id.chat_recyclerview)
         recycler.layoutManager = LinearLayoutManager(context)
+        chatUser = arguments?.getString("nickName").toString()
+        chatToDo = arguments?.getString("toDo").toString()
+        storageRef = Firebase.storage.reference
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
+        dialog = builder.setView(customLayout).create()
+
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
 //        recycler.adapter = ChatAdapter(this)
     }
 
     private fun setInfo() {
-
+        name.text = chatUser
+        todo.text = chatToDo
+        setImage(
+            storageRef,
+            chatUser,
+            imageView,
+            dialog
+        )
     }
 
     private fun createChat(to: String) {
