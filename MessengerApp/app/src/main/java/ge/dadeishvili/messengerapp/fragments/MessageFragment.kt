@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
@@ -78,6 +81,17 @@ class MessageFragment : Fragment() {
                 return false
             }
         })
+
+        chatRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                showMyChat()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
         return view
     }
 
@@ -109,6 +123,7 @@ class MessageFragment : Fragment() {
 
     private fun showMyChat() {
         chatRef.get().addOnSuccessListener {
+            chats.clear()
             for (child in it.children) {
                 val twoNames = child.key
                 val list = twoNames!!.split(SPLIT_CHAR)
