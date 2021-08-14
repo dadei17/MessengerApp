@@ -1,32 +1,33 @@
 package ge.dadeishvili.messengerapp.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import ge.dadeishvili.messengerapp.R
-import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
-import android.app.AlertDialog
-import android.text.SpannableStringBuilder
-import android.widget.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
+import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.adapters.ChatAdapter
 import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.CHATS_DB
+import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
 import ge.dadeishvili.messengerapp.models.Message
-import ge.dadeishvili.messengerapp.models.Chat as ChatModel
 import java.util.*
-import kotlin.collections.ArrayList
+import ge.dadeishvili.messengerapp.models.Chat as ChatModel
+import androidx.navigation.fragment.findNavController
+
 
 
 class Chat() : Fragment() {
@@ -44,7 +45,8 @@ class Chat() : Fragment() {
     private lateinit var sendButton: Button
     private lateinit var message: EditText
     private lateinit var chatsRef: DatabaseReference
-    private lateinit var chatList: ChatModel
+    lateinit var chatList: ChatModel
+    private lateinit var chatId : String
 
 
     override fun onCreateView(
@@ -58,18 +60,27 @@ class Chat() : Fragment() {
         updateMessageList()
         backButton.setOnClickListener{
             Log.e("clicked", "back")
-//            findNavController().navigate(R.id.action_back_to_search)
+            findNavController().navigate(R.id.action_back_to_search)
         }
+
+
+        chatsRef.child(chatId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                updateMessageList()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
         sendButton.setOnClickListener{
             val msg = message.text.toString()
+            message.text.clear()
             if (msg != "") {
-                val from = nickName
-                val to = chatUser
-                val chatId = if (from < to) "$from-$to" else "$to-$from"
-
                 chatList.messages = chatList.messages!!.toMutableList()
-                (chatList.messages as MutableList<Message>).add(Message(from, to, msg, Date()))
+                (chatList.messages as MutableList<Message>).add(Message(nickName, chatUser, msg, Date()))
                 chatsRef.child(chatId).setValue(chatList)
                 recycler.adapter!!.notifyDataSetChanged()
             }
@@ -91,6 +102,7 @@ class Chat() : Fragment() {
         chatsRef = Firebase.database.getReference(CHATS_DB)
         chatList = ChatModel()
         chatUser = arguments?.getString("nickName").toString()
+        chatId = if (nickName < chatUser) "$nickName-$chatUser" else "$chatUser-$nickName"
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
@@ -101,8 +113,10 @@ class Chat() : Fragment() {
 
 
         recycler = view.findViewById(R.id.chat_recyclerview)
-        recycler.layoutManager = LinearLayoutManager(context)
-//        recycler.adapter = ChatAdapter(chatList)
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.stackFromEnd = true
+        layoutManager.reverseLayout = true
+        recycler.layoutManager = layoutManager
     }
 
     private fun setInfo() {
@@ -130,19 +144,15 @@ class Chat() : Fragment() {
     }
 
     private fun updateMessageList(){
-        val from = nickName
-        val to = chatUser
-        val chatId : String = if (from < to) "$from-$to" else "$to-$from"
-
         chatsRef.child(chatId).get().addOnSuccessListener {
             val chatExisting = it.getValue(ChatModel::class.java)
             if (chatExisting != null) {
                 chatList = ChatModel(chatExisting.messages!!.toMutableList())
-                recycler.adapter = ChatAdapter(chatList)
+                recycler.adapter = ChatAdapter(this)
                 recycler.adapter!!.notifyDataSetChanged()
             }
         }.addOnFailureListener {
-            Log.e("init", "failed")
+
         }
     }
 
