@@ -125,7 +125,8 @@
         android:layout_marginStart="@dimen/common_margin"
         android:layout_marginEnd="@dimen/common_margin"
         android:layout_marginBottom="@dimen/half_margin"
-        app:cardElevation="@dimen/none_elevation">
+        app:cardElevation="@dimen/none_elevation"
+        app:cardBackgroundColor="@android:color/transparent">
 
         <Button
             android:id="@+id/send_button"

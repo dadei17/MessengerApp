@@ -32,6 +32,15 @@ class SearchUser : Fragment() {
     lateinit var storageRef: StorageReference
     lateinit var dialog: AlertDialog
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
+        dialog = builder.setView(customLayout).create()
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,9 +65,6 @@ class SearchUser : Fragment() {
         nickName = MessageFragment.getNickName()
         users = mutableListOf()
         storageRef = Firebase.storage.reference
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
-        dialog = builder.setView(customLayout).create()
         search = view.findViewById(R.id.search_page_search)
     }
 
@@ -68,8 +74,6 @@ class SearchUser : Fragment() {
                 val user = child.getValue(User::class.java)!!
                 if (user.nickName != nickName) {
                     users.add(user)
-                    dialog.show()
-                    dialog.setCanceledOnTouchOutside(false)
                     recycler.adapter!!.notifyDataSetChanged()
                 }
             }

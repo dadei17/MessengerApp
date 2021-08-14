@@ -25,6 +25,7 @@ import com.google.firebase.storage.ktx.storage
 import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 import ge.dadeishvili.messengerapp.models.Chat
+import kotlin.properties.Delegates
 
 class MessageFragment : Fragment() {
     private lateinit var plusButton: FloatingActionButton
@@ -36,6 +37,16 @@ class MessageFragment : Fragment() {
     lateinit var nickName: String
     lateinit var storageRef: StorageReference
     lateinit var dialog: AlertDialog
+    private var tryCount by Delegates.notNull<Int>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
+        dialog = builder.setView(customLayout).create()
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -46,17 +57,14 @@ class MessageFragment : Fragment() {
         val view = inflater.inflate(R.layout.messages, container, false)
         init(view)
         showMyChat()
+
         plusButton.setOnClickListener {
             findNavController().navigate(R.id.action_message_to_searchUser)
         }
+
         settingButton.setOnClickListener {
             findNavController().navigate(R.id.action_message_to_profile)
         }
-
-//        searchView.onActionViewExpanded()
-//        if (!searchView.isFocused()) {
-//            searchView.clearFocus()
-//        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -70,19 +78,6 @@ class MessageFragment : Fragment() {
         return view
     }
 
-    private fun add(){
-//        val chat = Chat(listOf(Message("dito", "pertaxa", "ravaxar?", Date())))
-//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(chat)
-//        Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").get().addOnSuccessListener {
-//            val chat = it.getValue(Chat::class.java)
-//            if (chat != null) {
-//                val list = chat.messages!!.toMutableList()
-//                list.add(Message("pertaxa", "dito", "shen?", Date()))
-//                Firebase.database.getReference(CHATS_DB).child("dito-pertaxa").setValue(Chat(list))
-//            }
-//        }
-    }
-
     private fun init(view: View) {
         plusButton = view.findViewById(R.id.messages_fab_button)
         settingButton = view.findViewById(R.id.messages_setting_button)
@@ -94,9 +89,7 @@ class MessageFragment : Fragment() {
         nickName = getNickName()
         chats = mutableListOf()
         storageRef = Firebase.storage.reference
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
-        dialog = builder.setView(customLayout).create()
+        tryCount = 0
     }
 
     private fun showMyChat() {
@@ -110,6 +103,10 @@ class MessageFragment : Fragment() {
                     recycler.adapter!!.notifyDataSetChanged()
                 }
             }
+        }.addOnFailureListener {
+            if (tryCount == 5) return@addOnFailureListener
+            showMyChat()
+            tryCount++
         }
     }
 
@@ -117,7 +114,7 @@ class MessageFragment : Fragment() {
         const val SPLIT_CHAR = '-'
         const val CHATS_DB = "Chats"
 
-        fun getNickName() : String{
+        fun getNickName(): String {
             val email = Firebase.auth.currentUser!!.email
             return email!!.substring(0, email.indexOf('@'))
         }
