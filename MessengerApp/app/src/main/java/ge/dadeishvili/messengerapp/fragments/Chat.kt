@@ -7,8 +7,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -26,8 +29,6 @@ import ge.dadeishvili.messengerapp.fragments.Profile.Companion.setImage
 import ge.dadeishvili.messengerapp.models.Message
 import java.util.*
 import ge.dadeishvili.messengerapp.models.Chat as ChatModel
-import androidx.navigation.fragment.findNavController
-import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 
 
 class Chat() : Fragment() {
@@ -47,6 +48,7 @@ class Chat() : Fragment() {
     private lateinit var chatsRef: DatabaseReference
     lateinit var chatList: ChatModel
     private lateinit var chatId: String
+    private lateinit var nestedScrollingView: NestedScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +99,6 @@ class Chat() : Fragment() {
                     )
                 )
                 chatsRef.child(chatId).setValue(chatList)
-                recycler.adapter = ChatAdapter(this)
                 recycler.adapter!!.notifyDataSetChanged()
             }
         }
@@ -119,12 +120,15 @@ class Chat() : Fragment() {
         chatList = ChatModel()
         chatUser = arguments?.getString("nickName").toString()
         chatId = if (nickName < chatUser) "$nickName-$chatUser" else "$chatUser-$nickName"
+        nestedScrollingView = view.findViewById(R.id.nested_scroll_view)
 
         recycler = view.findViewById(R.id.chat_recyclerview)
         val layoutManager = LinearLayoutManager(context)
         layoutManager.reverseLayout = false
         layoutManager.stackFromEnd = true
         recycler.layoutManager = layoutManager
+
+        recycler.adapter = ChatAdapter(this)
     }
 
     private fun setInfo() {
@@ -156,8 +160,17 @@ class Chat() : Fragment() {
             val chatExisting = it.getValue(ChatModel::class.java)
             if (chatExisting != null) {
                 chatList = ChatModel(chatExisting.messages!!.toMutableList())
-                recycler.adapter = ChatAdapter(this)
                 recycler.adapter!!.notifyDataSetChanged()
+
+                recycler.viewTreeObserver.addOnGlobalLayoutListener {
+                    val index = chatList.messages!!.size - 1
+                    val lastChild = recycler.getChildAt(index)
+
+                    if(lastChild != null){
+                        nestedScrollingView.fling(0)
+                        nestedScrollingView.smoothScrollTo(0, lastChild.y.toInt())
+                    }
+                }
             }
         }.addOnFailureListener {
 
