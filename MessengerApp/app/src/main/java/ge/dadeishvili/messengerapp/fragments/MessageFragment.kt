@@ -3,6 +3,7 @@ package ge.dadeishvili.messengerapp.fragments
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class MessageFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var chatRef: DatabaseReference
     lateinit var chats: MutableList<Chat>
+    lateinit var chatsFiltered: MutableList<Chat>
     lateinit var nickName: String
     lateinit var storageRef: StorageReference
     lateinit var dialog: AlertDialog
@@ -71,6 +73,8 @@ class MessageFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                chatsFiltered = chats.filter { curChat -> getChatName(curChat).contains(newText.toString()) } as MutableList<Chat>
+                recycler.adapter!!.notifyDataSetChanged()
                 return false
             }
         })
@@ -87,8 +91,15 @@ class MessageFragment : Fragment() {
         chatRef = Firebase.database.getReference(CHATS_DB)
         nickName = getNickName()
         chats = mutableListOf()
+        chatsFiltered = mutableListOf()
         storageRef = Firebase.storage.reference
         tryCount = 0
+    }
+
+    private fun getChatName(chat : Chat) : String{
+        val messages = chat.messages
+        val name = if (messages?.last()?.from?.compareTo(nickName) == 0)  messages.last().to else messages?.last()?.from
+        return name.toString()
     }
 
     private fun calculateDiffInTime(date: Date?): Int {
@@ -110,6 +121,7 @@ class MessageFragment : Fragment() {
                 calculateDiffInTime(first.messages?.get(first.messages!!.size - 1)?.date) -
                         calculateDiffInTime(second.messages?.get(second.messages!!.size - 1)?.date)
             })
+            chatsFiltered = chats
             recycler.adapter!!.notifyDataSetChanged()
         }.addOnFailureListener {
             if (tryCount == 5) return@addOnFailureListener

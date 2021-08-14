@@ -24,7 +24,7 @@ class MessageAdapter(var messageFragment: MessageFragment) :
     }
 
     override fun onBindViewHolder(holder: MessageItemHolder, position: Int) {
-        val chat = messageFragment.chats[position]
+        val chat = messageFragment.chatsFiltered[position]
         val nickname = messageFragment.nickName
         val messages = chat.messages
         holder.message.text = messages?.last()?.message
@@ -43,7 +43,7 @@ class MessageAdapter(var messageFragment: MessageFragment) :
     }
 
     override fun getItemCount(): Int {
-        return messageFragment.chats.size
+        return messageFragment.chatsFiltered.size
     }
 
     private fun calculateTime(date: Date?): String {
