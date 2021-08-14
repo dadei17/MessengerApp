@@ -10,9 +10,8 @@ import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.fragments.Chat
 import ge.dadeishvili.messengerapp.fragments.MessageFragment.Companion.getNickName
 import ge.dadeishvili.messengerapp.models.Message
-import ge.dadeishvili.messengerapp.models.Chat as ChatModel
 
-class ChatAdapter(var chatList: ChatModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+class ChatAdapter(var chatFragment: Chat) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
     private val LEFT_ITEM : Int = 0
     private val RIGHT_ITEM : Int = 1
@@ -30,18 +29,18 @@ class ChatAdapter(var chatList: ChatModel) : RecyclerView.Adapter<RecyclerView.V
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(getItemViewType(position) == LEFT_ITEM) {
-            (holder as ChatItemHolderLeft).bind(chatList.messages!![position])
+            (holder as ChatItemHolderLeft).bind(chatFragment.chatList.messages!![position])
         }else {
-            (holder as ChatItemHolderRight).bind(chatList.messages!![position])
+            (holder as ChatItemHolderRight).bind(chatFragment.chatList.messages!![position])
         }
     }
 
     override fun getItemCount(): Int {
-        return chatList.messages!!.size
+        return chatFragment.chatList.messages!!.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(chatList.messages!![position].from == getNickName()){
+        return if(chatFragment.chatList.messages!![position].from == getNickName()){
             RIGHT_ITEM
         }else {
             LEFT_ITEM
@@ -50,18 +49,23 @@ class ChatAdapter(var chatList: ChatModel) : RecyclerView.Adapter<RecyclerView.V
 
     class ChatItemHolderRight(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageView: TextView = itemView.findViewById(R.id.chat_right_msg)
+        var messageTimeView: TextView = itemView.findViewById(R.id.chat_right_time)
 
         fun bind(msg : Message){
-            messageView.text = msg.toString()
+            messageView.text = msg.message
+            val textDate : String = msg.date?.hours.toString() + ":" + msg.date?.minutes.toString()
+            messageTimeView.text = textDate
         }
     }
 
     class ChatItemHolderLeft(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageView: TextView = itemView.findViewById(R.id.chat_left_msg)
+        var messageTimeView: TextView = itemView.findViewById(R.id.chat_left_time)
 
         fun bind(msg : Message){
-            messageView.text = msg.toString()
-
+            messageView.text = msg.message
+            val textDate : String = msg.date?.hours.toString() + ":" + msg.date?.minutes.toString()
+            messageTimeView.text = textDate
         }
     }
 
