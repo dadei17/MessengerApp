@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/chat_left_msg"
+        android:id="@+id/chat_right_msg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
@@ -34,6 +34,6 @@
         android:text="@string/hh_mm"
         android:textSize="@dimen/chat_time_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/chat_left_msg" />
+        app:layout_constraintEnd_toStartOf="@+id/chat_right_msg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,6 +55,7 @@ class Chat() : Fragment() {
         val view = inflater.inflate(R.layout.chat, container, false)
         init(view)
         setInfo()
+        updateMessageList()
         backButton.setOnClickListener{
             Log.e("clicked", "back")
 //            findNavController().navigate(R.id.action_back_to_search)
@@ -67,11 +68,10 @@ class Chat() : Fragment() {
                 val to = chatUser
                 val chatId = if (from < to) "$from-$to" else "$to-$from"
 
-                val chat = ChatModel(listOf(Message(from, to, msg, Date())))
-
                 chatList.messages = chatList.messages!!.toMutableList()
                 (chatList.messages as MutableList<Message>).add(Message(from, to, msg, Date()))
                 chatsRef.child(chatId).setValue(chatList)
+                recycler.adapter!!.notifyDataSetChanged()
             }
         }
 
@@ -85,14 +85,12 @@ class Chat() : Fragment() {
         backButton = view.findViewById(R.id.chat_back)
         nickName = MessageFragment.getNickName()
         usersRef = Firebase.database.getReference(SignUp.USERS_DB)
-        recycler = view.findViewById(R.id.chat_recyclerview)
-        recycler.layoutManager = LinearLayoutManager(context)
-        chatUser = arguments?.getString("nickName").toString()
         storageRef = Firebase.storage.reference
         sendButton = view.findViewById(R.id.send_button)
         message = view.findViewById(R.id.chat_message_text)
         chatsRef = Firebase.database.getReference(CHATS_DB)
         chatList = ChatModel()
+        chatUser = arguments?.getString("nickName").toString()
 
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
@@ -102,7 +100,6 @@ class Chat() : Fragment() {
         dialog.setCanceledOnTouchOutside(false)
 
 
-        updateMessageList()
         recycler = view.findViewById(R.id.chat_recyclerview)
         recycler.layoutManager = LinearLayoutManager(context)
 //        recycler.adapter = ChatAdapter(chatList)
@@ -135,13 +132,17 @@ class Chat() : Fragment() {
     private fun updateMessageList(){
         val from = nickName
         val to = chatUser
-        val chatId = if (from < to) "$from-$to" else "$to-$from"
+        val chatId : String = if (from < to) "$from-$to" else "$to-$from"
 
         chatsRef.child(chatId).get().addOnSuccessListener {
             val chatExisting = it.getValue(ChatModel::class.java)
             if (chatExisting != null) {
                 chatList = ChatModel(chatExisting.messages!!.toMutableList())
+                recycler.adapter = ChatAdapter(chatList)
+                recycler.adapter!!.notifyDataSetChanged()
             }
+        }.addOnFailureListener {
+            Log.e("init", "failed")
         }
     }
 
