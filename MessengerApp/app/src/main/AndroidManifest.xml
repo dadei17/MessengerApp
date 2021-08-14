@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="ExtraText"
         tools:targetApi="m">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -27,7 +27,7 @@ import ge.dadeishvili.messengerapp.models.Message
 import java.util.*
 import ge.dadeishvili.messengerapp.models.Chat as ChatModel
 import androidx.navigation.fragment.findNavController
-
+import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 
 
 class Chat() : Fragment() {
@@ -47,6 +47,15 @@ class Chat() : Fragment() {
     private lateinit var chatsRef: DatabaseReference
     lateinit var chatList: ChatModel
     private lateinit var chatId : String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
+        dialog = builder.setView(customLayout).create()
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(false)
+    }
 
 
     override fun onCreateView(
@@ -104,18 +113,8 @@ class Chat() : Fragment() {
         chatUser = arguments?.getString("nickName").toString()
         chatId = if (nickName < chatUser) "$nickName-$chatUser" else "$chatUser-$nickName"
 
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val customLayout: View = layoutInflater.inflate(R.layout.loading, null)
-        dialog = builder.setView(customLayout).create()
-
-        dialog.show()
-        dialog.setCanceledOnTouchOutside(false)
-
-
         recycler = view.findViewById(R.id.chat_recyclerview)
         val layoutManager = LinearLayoutManager(context)
-        layoutManager.stackFromEnd = true
-        layoutManager.reverseLayout = true
         recycler.layoutManager = layoutManager
     }
 

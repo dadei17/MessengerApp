@@ -28,4 +28,5 @@
     <dimen name="message_padding">20dp</dimen>
     <dimen name="chat_text_size">12sp</dimen>
     <dimen name="chat_time_size">8sp</dimen>
+    <dimen name="message_send_margin">80dp</dimen>
 </resources>
