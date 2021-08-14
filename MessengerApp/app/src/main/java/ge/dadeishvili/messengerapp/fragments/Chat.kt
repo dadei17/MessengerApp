@@ -97,6 +97,7 @@ class Chat() : Fragment() {
                     )
                 )
                 chatsRef.child(chatId).setValue(chatList)
+                recycler.adapter = ChatAdapter(this)
                 recycler.adapter!!.notifyDataSetChanged()
             }
         }
