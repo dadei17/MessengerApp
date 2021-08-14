@@ -3,7 +3,6 @@ package ge.dadeishvili.messengerapp.fragments
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +18,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import ge.dadeishvili.messengerapp.R
 import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 import ge.dadeishvili.messengerapp.models.Chat
+import java.util.*
 import kotlin.properties.Delegates
 
 class MessageFragment : Fragment() {
@@ -92,6 +91,11 @@ class MessageFragment : Fragment() {
         tryCount = 0
     }
 
+    private fun calculateDiffInTime(date: Date?): Int {
+        val c = Calendar.getInstance()
+        return c.time.time.minus(date!!.time).toInt()
+    }
+
     private fun showMyChat() {
         chatRef.get().addOnSuccessListener {
             for (child in it.children) {
@@ -102,6 +106,10 @@ class MessageFragment : Fragment() {
                     chats.add(chat)
                 }
             }
+            chats.sortWith(Comparator { first, second ->
+                calculateDiffInTime(first.messages?.get(first.messages!!.size - 1)?.date) -
+                        calculateDiffInTime(second.messages?.get(second.messages!!.size - 1)?.date)
+            })
             recycler.adapter!!.notifyDataSetChanged()
         }.addOnFailureListener {
             if (tryCount == 5) return@addOnFailureListener
