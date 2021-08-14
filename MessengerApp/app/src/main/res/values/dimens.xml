@@ -29,4 +29,5 @@
     <dimen name="chat_text_size">12sp</dimen>
     <dimen name="chat_time_size">8sp</dimen>
     <dimen name="message_send_margin">80dp</dimen>
+    <dimen name="nested_view_margin_bottom">180dp</dimen>
 </resources>

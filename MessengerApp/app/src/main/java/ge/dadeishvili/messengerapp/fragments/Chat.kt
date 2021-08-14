@@ -46,7 +46,7 @@ class Chat() : Fragment() {
     private lateinit var message: EditText
     private lateinit var chatsRef: DatabaseReference
     lateinit var chatList: ChatModel
-    private lateinit var chatId : String
+    private lateinit var chatId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +67,10 @@ class Chat() : Fragment() {
         init(view)
         setInfo()
         updateMessageList()
-        backButton.setOnClickListener{
-            Log.e("clicked", "back")
-            findNavController().navigate(R.id.action_back_to_search)
-        }
 
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_chat_to_message)
+        }
 
         chatsRef.child(chatId).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -84,12 +83,19 @@ class Chat() : Fragment() {
 
         })
 
-        sendButton.setOnClickListener{
+        sendButton.setOnClickListener {
             val msg = message.text.toString()
             message.text.clear()
             if (msg != "") {
                 chatList.messages = chatList.messages!!.toMutableList()
-                (chatList.messages as MutableList<Message>).add(Message(nickName, chatUser, msg, Date()))
+                (chatList.messages as MutableList<Message>).add(
+                    Message(
+                        nickName,
+                        chatUser,
+                        msg,
+                        Date()
+                    )
+                )
                 chatsRef.child(chatId).setValue(chatList)
                 recycler.adapter!!.notifyDataSetChanged()
             }
@@ -115,6 +121,8 @@ class Chat() : Fragment() {
 
         recycler = view.findViewById(R.id.chat_recyclerview)
         val layoutManager = LinearLayoutManager(context)
+        layoutManager.reverseLayout = false
+        layoutManager.stackFromEnd = true
         recycler.layoutManager = layoutManager
     }
 
@@ -142,7 +150,7 @@ class Chat() : Fragment() {
         )
     }
 
-    private fun updateMessageList(){
+    private fun updateMessageList() {
         chatsRef.child(chatId).get().addOnSuccessListener {
             val chatExisting = it.getValue(ChatModel::class.java)
             if (chatExisting != null) {

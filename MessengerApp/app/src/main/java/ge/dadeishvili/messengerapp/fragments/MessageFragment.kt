@@ -100,9 +100,9 @@ class MessageFragment : Fragment() {
                 if (list.contains(nickName)) {
                     val chat = child.getValue(Chat::class.java)!!
                     chats.add(chat)
-                    recycler.adapter!!.notifyDataSetChanged()
                 }
             }
+            recycler.adapter!!.notifyDataSetChanged()
         }.addOnFailureListener {
             if (tryCount == 5) return@addOnFailureListener
             showMyChat()

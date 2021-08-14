@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -57,6 +58,14 @@ class Profile : Fragment() {
         view.findViewById<Button>(R.id.profilePage_signOut_button).setOnClickListener {
             Firebase.auth.signOut()
             findNavController().navigate(R.id.action_profile_to_signIn)
+        }
+
+        view.findViewById<Button>(R.id.profilePage_home_button).setOnClickListener {
+            findNavController().navigate(R.id.action_profile_to_message)
+        }
+
+        view.findViewById<FloatingActionButton>(R.id.profilePage_fab_button).setOnClickListener {
+            findNavController().navigate(R.id.action_profile_to_search)
         }
 
         return view
