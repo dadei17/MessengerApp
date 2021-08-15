@@ -90,9 +90,8 @@ class MessageFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
 
+            }
         })
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
