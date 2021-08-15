@@ -59,6 +59,13 @@ class SignUp : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
+            }else if(nick.text.toString().contains('-')){
+                Toast.makeText(
+                    context,
+                    "Nickname cannot contain '-' chatacter",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
             }
             createUser(nick.text.toString(), password.text.toString(), todo.text.toString())
         }
