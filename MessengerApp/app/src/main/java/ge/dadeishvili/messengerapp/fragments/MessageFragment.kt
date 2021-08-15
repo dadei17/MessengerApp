@@ -1,14 +1,15 @@
 package ge.dadeishvili.messengerapp.fragments
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SearchView
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,7 @@ import ge.dadeishvili.messengerapp.adapters.MessageAdapter
 import ge.dadeishvili.messengerapp.models.Chat
 import java.util.*
 import kotlin.properties.Delegates
+
 
 class MessageFragment : Fragment() {
     private lateinit var plusButton: FloatingActionButton
@@ -92,6 +94,14 @@ class MessageFragment : Fragment() {
             }
 
         })
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val intent = Intent()
+            intent.action = Intent.ACTION_MAIN
+            intent.addCategory(Intent.CATEGORY_HOME)
+            startActivity(intent)
+        }
+
         return view
     }
 
