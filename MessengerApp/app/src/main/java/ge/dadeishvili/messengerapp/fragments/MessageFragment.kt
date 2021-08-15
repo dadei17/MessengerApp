@@ -94,7 +94,7 @@ class MessageFragment : Fragment() {
             }
         })
 
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
             val intent = Intent()
             intent.action = Intent.ACTION_MAIN
             intent.addCategory(Intent.CATEGORY_HOME)
