@@ -43,7 +43,6 @@ class MessageFragment : Fragment() {
     lateinit var nickName: String
     lateinit var storageRef: StorageReference
     lateinit var dialog: AlertDialog
-    private var tryCount by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +115,6 @@ class MessageFragment : Fragment() {
         chats = mutableListOf()
         chatsFiltered = mutableListOf()
         storageRef = Firebase.storage.reference
-        tryCount = 0
     }
 
     private fun getChatName(chat : Chat) : String{
@@ -148,9 +146,6 @@ class MessageFragment : Fragment() {
             chatsFiltered = chats
             recycler.adapter!!.notifyDataSetChanged()
         }.addOnFailureListener {
-            if (tryCount == 5) return@addOnFailureListener
-            showMyChat()
-            tryCount++
         }
     }
 
