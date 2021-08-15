@@ -80,7 +80,6 @@ class Chat() : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })

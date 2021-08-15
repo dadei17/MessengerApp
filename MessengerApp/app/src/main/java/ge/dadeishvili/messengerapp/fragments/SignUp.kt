@@ -51,12 +51,14 @@ class SignUp : Fragment() {
                     .isEmpty() || todo.text.toString().isEmpty()
             ) {
                 Toast.makeText(context, "Fill all the information!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             } else if (password.length() < 6) {
                 Toast.makeText(
                     context,
                     "Password should be at least 6 characters",
                     Toast.LENGTH_SHORT
                 ).show()
+                return@setOnClickListener
             }
             createUser(nick.text.toString(), password.text.toString(), todo.text.toString())
         }
